@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Evaluation Survey</title>
+    <link rel="icon" href="https://previews.123rf.com/images/arcady31/arcady311603/arcady31160300010/53258650-survey-icon.jpg" type="image/x-icon">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #edf7ff;
+            /* Light blue background color */
+        }
+        
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        h1,
+        h3 {
+            color: #007bff;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            /* 16:9 aspect ratio */
+            margin-bottom: 15px;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-description {
+            background-color: #f7f7f7; /* Light gray background color */
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 20px;
+            color: #ff6969; /* Beautiful pink color */
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Video Evaluation Survey for memory perception</h1>
+
+        <!-- Description -->
+    <div class="video-description">
+        <p>
+            This survey aims to evaluate videos based on:
+        </p>
+        <ul>
+            <li>Plausibility (the ability to seem reasonable)</li>
+            <li>Valence (the degree to which an emotional stimulus such as the faces and sounds in the video is pleasant or unpleasant)</li>
+            <li>Arousal (the state of being awake, aware, and alert)</li>
+        </ul>
+    </div>
+
+    <!-- Video Sections with Rating Scales -->
+        <form id="surveyForm" action="/{{page}}" method="post">
+            <div class="row video-section">
+                <!-- Loop through videos initially -->
+                {% for i in video_index %}
+                <div class="col-md-6 video-section">
+                    <div class="video-container">
+                        <!-- Replace the src attribute with the video file URL -->
+                        <iframe src="{{ video_files[i] }}" allowfullscreen></iframe>
+                    </div>
+                    <h3>Video {{ i + 1 }}</h3>
+                    <!-- Description for each video -->
+                    <div class="video-description">
+                        {{ video_descriptions[i] }}
+                    </div>
+                    
+                    <!-- Rating Scales for each video -->
+                    <div class="form-group">
+                        <label for="plausibilityScale{{ i+1 }}" data-toggle="tooltip" data-placement="right" title="the ability to seem reasonable">Plausibility:</label>
+                        <select class="form-control plausibility-select" id="plausibilityScale{{ i+1 }}" name="plausibilityScale{{ i+1 }}">
+                            <option value="Very Implausible">Very Implausible</option>
+                            <option value="Implausible">Implausible</option>
+                            <option value="Neutral">Neutral</option>
+                            <option value="Plausible">Plausible</option>
+                            <option value="Very Plausible">Very Plausible</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="valenceScale{{ i+1 }}" data-toggle="tooltip" data-placement="right" title="The degree to which an emotional stimulus such as the faces and sounds in the video is pleasant or unpleasant">Valence:</label>
+                        <select class="form-control valence-select" id="valenceScale{{ i+1 }}" name="valenceScale{{ i+1 }}">
+                            <option value="Very Negative">Very Negative</option>
+                            <option value="Negative">Negative</option>
+                            <option value="Neutral">Neutral</option>
+                            <option value="Positive">Positive</option>
+                            <option value="Very Positive">Very Positive</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="arousalScale{{ i+1 }}" data-toggle="tooltip" data-placement="right" title="The state of being awake, aware, and alert">Arousal:</label>
+                        <select class="form-control arousal-select" id="arousalScale{{ i+1 }}" name="arousalScale{{ i+1 }}">
+                            <option value="Very Low">Very Low</option>
+                            <option value="Low">Low</option>
+                            <option value="Neutral">Neutral</option>
+                            <option value="High">High</option>
+                            <option value="Very High">Very High</option>
+                        </select>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- Submit button -->
+            <button type="submit" form="surveyForm" class="btn btn-primary mt-3" id="submitBtn" >Submit</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+        // Add event listener for form submission
+        document.getElementById('surveyForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Display popup
+            alert('Please wait submitting your responses...');
+            
+            setTimeout(function() {
+                document.getElementById('surveyForm').submit();
+            }, 1000); //delay as needed
+        });
+    </script>
+
+</body>
+
+</html>

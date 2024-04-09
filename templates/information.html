@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demographic and Feedback Form</title>
+    <link rel="icon" href="https://previews.123rf.com/images/arcady31/arcady311603/arcady31160300010/53258650-survey-icon.jpg" type="image/x-icon">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #edf7ff; /* Light blue background color */
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 30px;
+        }
+        h1 {
+            color: #007bff; /* Blue header color */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Additional Information and Feedback Form</h1>
+
+    <form id="surveyForm" action="/submit_info" method="post">
+        <!-- Demographic Questions -->
+        <h2 class="mt-5 mb-3">Demographic questions:</h2>
+        <div class="form-group">
+            <label for="age">1. What is your age?</label>
+            <select class="form-control" id="age" name="age">
+                <option value="18-24">18-24</option>
+                <option value="25-34">25-34</option>
+                <option value="35-44">35-44</option>
+                <option value="45-54">45-54</option>
+                <option value="55-64">55-64</option>
+                <option value="65+">65+</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="gender">2. What is your gender?</label>
+            <select class="form-control" id="gender" name="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="education">3. What is your highest level of education?</label>
+            <select class="form-control" id="education" name="education">
+                <option value="High school or equivalent">High school or equivalent</option>
+                <option value="Bachelor's degree">Bachelor's degree</option>
+                <option value="Master's degree">Master's degree</option>
+                <option value="Doctoral degree">Doctoral degree</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="occupation">4. What is your occupation?</label>
+            <select class="form-control" id="occupation" name="occupation">
+                <option value="Student">Student</option>
+                <option value="Employed (full-time)">Employed (full-time)</option>
+                <option value="Employed (part-time)">Employed (part-time)</option>
+                <option value="Self-employed">Self-employed</option>
+                <option value="Unemployed">Unemployed</option>
+                <option value="Retired">Retired</option>
+            </select>
+        </div>
+
+        <!-- Website usability and experience questions -->
+        <h2 class="mt-5 mb-3">Website usability and experience questions:</h2>
+        <div class="form-group">
+            <label for="responsiveness">1. How would you rate responsiveness of the web application?</label>
+            <select class="form-control" id="responsiveness" name="responsiveness">
+                <option value="Very good">Very good</option>
+                <option value="Good">Good</option>
+                <option value="Neutral">Neutral</option>
+                <option value="Bad">Bad</option>
+                <option value="Very bad">Very bad</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="user_experience">2. How would you rate the overall user experience of the web application?</label>
+            <select class="form-control" id="user_experience" name="user_experience">
+                <option value="Excellent">Excellent</option>
+                <option value="Good">Good</option>
+                <option value="Average">Average</option>
+                <option value="Poor">Poor</option>
+                <option value="Very poor">Very poor</option>
+            </select>
+        </div>
+       
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+    // Add event listener for form submission
+    document.getElementById('surveyForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        // Display popup
+        alert('Submitting your responses...');
+        
+        setTimeout(function() {
+            document.getElementById('surveyForm').submit();
+        }, 1000); //delay as needed
+    });
+</script>
+
+</body>
+</html>
