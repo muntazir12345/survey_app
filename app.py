@@ -32,14 +32,13 @@ videos_descriptions=[
 
 # SQLite database initialization
 def init_db():
-    
     conn = psycopg2.connect(database="verceldb",  
                             user="default", 
                             password="3yiTB8qhveEb",  
                             host="ep-shrill-base-a4na61or-pooler.us-east-1.aws.neon.tech") 
-    c = conn.cursor()
+    c=conn.cursor()
     command="""CREATE TABLE IF NOT EXISTS response_details (
-                     id SERIAL PRIMARY KEY,"""
+                        id SERIAL PRIMARY KEY,"""
     for i in range(1,11):
         command+=f'''
                     plausibility_video{i} TEXT,
@@ -147,8 +146,10 @@ def submit_survey():
         conn = psycopg2.connect(database="verceldb",  
                             user="default", 
                             password="3yiTB8qhveEb",  
-                            host="ep-shrill-base-a4na61or-pooler.us-east-1.aws.neon.tech")
+                            host="ep-shrill-base-a4na61or-pooler.us-east-1.aws.neon.tech") 
+        
         c = conn.cursor()
+        print(plausibility_values,valence_values,arousal_values)
         command=""" Insert into response_details ("""
         for i in range(1,11):
             command+=f"""plausibility_video{i}, valence_video{i}, arousal_video{i},"""
@@ -159,9 +160,12 @@ def submit_survey():
             values.append(valence_values[i])
             values.append(arousal_values[i])
         c.execute(command,tuple(values))
+        plausibility_values.clear()
+        valence_values.clear()
+        arousal_values.clear()
         conn.commit()
         conn.close()
-
+        
         # Redirect to the additional information page
         return redirect(url_for('additional_info'))
         
@@ -189,11 +193,10 @@ def submit_info():
         # aq5= request.form['arousing']
         # aq6=request.form['exposure']
 
-        # Save data to SQLite database
         conn = psycopg2.connect(database="verceldb",  
                             user="default", 
                             password="3yiTB8qhveEb",  
-                            host="ep-shrill-base-a4na61or-pooler.us-east-1.aws.neon.tech")
+                            host="ep-shrill-base-a4na61or-pooler.us-east-1.aws.neon.tech") 
         c = conn.cursor()
 
         # c.execute('''UPDATE response_details SET AQ_1=%s, AQ_2=%s,AQ_3=%s,AQ_4=%s,AQ_5=%s,AQ_6=%s WHERE id=(SELECT MAX(id) FROM response_details)''',
